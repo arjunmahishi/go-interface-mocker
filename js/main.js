@@ -47,14 +47,14 @@ const mockInterface = (interfaceObj) => {
         interfaceObj.methods.forEach(r => {
             r.returnString.replace("(", "").replace(")", "").split(",").forEach(t => {
                 t = t.trim()
-                mockMembers += `\t${r.name}_${t}ToReturn ${t}\n`
+                mockMembers += `\t${getMemberName(r.name, t)} ${t}\n`
             })
         })
         
         interfaceObj.methods.forEach(func => {
             var returnSt = "" 
             returnArray(func.returnString).forEach(s => {
-                returnSt += `${func.name}_${s}ToReturn, `
+                returnSt += `m.${getMemberName(func.name, s)}, `
             })
             mockMethods += `\n\nfunc (m ${mockName}) ${func.name}(${func.argsString}) ${func.returnString} {\n\treturn ${returnSt.replace(/(^,)|(, $)/g, "")}\n}`
         });
@@ -81,17 +81,17 @@ const refreshOutput = (inputEditor, outputEditor) => {
     outputEditor.setValue(mockCode)
 }
 
+const getMemberName = (funcName, returnType) => `${funcName}_${returnType.replace("*", "").replace(".", "_")}ToReturn`
+
 var inputEditor = CodeMirror(document.querySelector("#input-editor"), {
     mode: "go",
     theme: "material-darker",
-    // value: code,
     lineNumbers: true
 });
 
 var outputEditor = CodeMirror(document.querySelector("#output-editor"), {
     mode: "go",
     theme: "material-darker",
-    // value: lines,
     lineNumbers: true,
     readOnly: "nocursor"
 });
