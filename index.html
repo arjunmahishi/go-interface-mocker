@@ -8,6 +8,28 @@
         <link rel="stylesheet" href="vendors/codemirror/theme/material-darker.css">
     </head>
 <body>
+    <div class="row banner">
+        <div class="col-sm">
+            <h1 class="text-center">Go mock code generator</h1>
+        </div>
+        <div class="col-sm">
+            <p>
+                This is a tool to instantly generate mock code for a given interface. This can be used to
+                mock dependancies while writing unit tests. To no more about how to mock dependancies and write good
+                unit tests, refer this.
+            </p>
+        </div>
+        <div class="col-sm text-center">
+            <a href="https://github.com/arjunmahishi/go-interface-mocker">
+                <div class="col">
+                    <img class="img-fluid github-logo" src="img/Octocat.png"/>
+                </div>
+                <div class="col">
+                    <p>Check out this project on GitHub</p>
+                </div>
+            </a>
+        </div>
+    </div>
     <div class="row justify-content-sm-center">
         <div class="col-sm col-md-6">
             <h2 class="text-center">Interface</h2>
@@ -18,6 +40,11 @@
             <div class="editor" id="output-editor"></div>
         </div> 
     </div>
+    <footer class="text-center text-muted">
+        &copy; 2019 <a href="https://github.com/arjunmahishi">Arjun Mahishi</a>
+        <!-- <br>
+        The Go Gopher artwork is a derivative of that by Renee French. -->
+    </footer>
 </body>
 <script src="vendors/codemirror/lib/codemirror.js"></script>
 <script src="vendors/codemirror/mode/go/go.js"></script>

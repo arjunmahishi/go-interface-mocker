@@ -1,6 +1,17 @@
-body{
-    overflow-x: hidden;
-}
 .editor{
     padding: 2%;
+}
+.github-logo{
+    max-height: -webkit-fill-available;
+}
+footer{
+    margin-top: 2rem;
+}
+
+@media only screen and (min-width: 600px) {
+    .banner {
+        height: 19%;
+        padding-top: 4rem;
+        margin-bottom: 4rem;
+    }
 }

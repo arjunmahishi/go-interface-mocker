@@ -1,7 +1,7 @@
 /*
 
-    * parseCode(): parses the code in creates an object that is easy to consume
-    * mockInterface(): takes the object and generates the mockCode
+    * parseCode(): parses the code and creates a json object (refer the readme)
+    * mockInterface(): takes the object and generates the mock code
 
 */
 
@@ -71,17 +71,11 @@ const returnArray = (st) =>
     .map(s => s.trim())
     .filter(ele => ele != "")
 
-const refreshOutput = (inputEditor, outputEditor) => {
-    outputEditor.setValue("// the mock code comes here (if everything goes well")
-    let mockCode = mockInterface(
-        parseCode(
-            inputEditor.getValue()
-        )
-    )
-    outputEditor.setValue(mockCode)
-}
+const refreshOutput = (inputEditor, outputEditor) => 
+    outputEditor.setValue(mockInterface(parseCode(inputEditor.getValue())))
 
-const getMemberName = (funcName, returnType) => `${funcName}_${returnType.replace("*", "").replace(".", "_")}ToReturn`
+const getMemberName = (funcName, returnType) => 
+    `${funcName}_${returnType.replace("*", "").replace(".", "_")}ToReturn`
 
 var inputEditor = CodeMirror(document.querySelector("#input-editor"), {
     mode: "go",
