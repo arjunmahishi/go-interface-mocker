@@ -2,8 +2,10 @@
     padding: 2%;
 }
 .github-logo{
-    max-height: -webkit-fill-available;
+    max-height: 6rem;
 }
+/* .banner {
+} */
 footer{
     margin-top: 2rem;
 }
