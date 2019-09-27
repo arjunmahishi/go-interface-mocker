@@ -5,23 +5,21 @@ type test interface {
 }
 `.trim()
 
-const parseInterface = (intCode) => {
+const parseCode = (intCode) => {
     let interfaceData = {}    
     interfaceData.name = intCode.split("type")[1].split("interface")[0].trim()
 
     interfaceData.methods = []
-    let methodSigs = code.split("{")[1].split("}")[0].trim().split("\n").map(f => f.trim())
+    let methodSigs = intCode.trim().split("{")[1].split("}")[0].trim().split("\n").map(f => f.trim()).filter(ele => ele != "")
     methodSigs.forEach(sig => {
-        console.log(sig)
         interfaceData.methods.push({
             name: sig.split("(")[0].trim(),
             argsString: sig.split("(")[1].split(")")[0].trim(),
+            returnString: sig.slice(sig.search(/\)/g)+1).trim()
         })
     })
     return interfaceData
 }
-
-console.log(parseInterface(code))
 
 const mockInterface = (interfaceObj) => {
     let mockName = `mock${interfaceObj.name}`
@@ -46,7 +44,12 @@ const mockInterface = (interfaceObj) => {
     return `type ${mockName} struct {\n${mockMembers}}${mockMethods}`
 }
 
-const returnArray = (st) =>  st.replace("(", "").replace(")", "").split(",").map(s => s.trim())
+const returnArray = (st) =>  
+    st.replace("(", "")
+    .replace(")", "")
+    .split(",")
+    .map(s => s.trim())
+    .filter(ele => ele != "")
 
 let lines = mockInterface({
     name: "Sample", 
@@ -76,3 +79,15 @@ var outputEditor = CodeMirror(document.querySelector("#output-editor"), {
     value: lines,
     lineNumbers: true
 });
+
+const submit = () => {
+    let mockCode = mockInterface(
+        parseCode(
+            inputEditor.getValue()
+        )
+    )
+    if (!mockCode){
+        mockCode = "// Unable to parse the interface code"
+    }
+    outputEditor.setValue(mockCode)
+}
