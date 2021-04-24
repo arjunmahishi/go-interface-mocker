@@ -74,8 +74,16 @@ const returnArray = (st) =>
 const refreshOutput = (inputEditor, outputEditor) => 
     outputEditor.setValue(mockInterface(parseCode(inputEditor.getValue())))
 
-const getMemberName = (funcName, returnType) => 
-    `${funcName}_${returnType.replace("*", "").replace(".", "_")}ToReturn`
+const getMemberName = (funcName, returnType) => {
+  const cleanReturnTypeName = returnType
+    .replace("*", "")
+    .replace("[", "")
+    .replace("]", "")
+    .replace("{", "")
+    .replace("}", "")
+    .replace(".", "_")
+    return `${funcName}_${cleanReturnTypeName}ToReturn`
+}
 
 var inputEditor = CodeMirror(document.querySelector("#input-editor"), {
     mode: "go",
